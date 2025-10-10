@@ -3,6 +3,10 @@ namespace OtoMeMo
 {
     public class Program
     {
+        //  This is the address of the database.
+        //  We define it here as a constant since it will never change.
+        private const string CONNECTION_STRING = @"server=localhost\SQLExpress;database=OtoMeMo;integrated security=true; TrustServerCertificate=True;";
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

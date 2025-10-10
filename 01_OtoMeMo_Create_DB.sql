@@ -1,17 +1,4 @@
-﻿-- Delete data from child tables first (optional if you want to keep tables)
-DELETE FROM UserGameLists;
-DELETE FROM UserGames;
-DELETE FROM Lists;
-DELETE FROM GameGenres;
-DELETE FROM GamePlatforms;
-DELETE FROM GameRegions;
-DELETE FROM Users;
-DELETE FROM Games;
-DELETE FROM Genres;
-DELETE FROM Platforms;
-DELETE FROM Regions;
-
--- Drop tables in reverse dependency order
+﻿-- Drop tables in reverse dependency order
 DROP TABLE IF EXISTS UserGameLists;
 DROP TABLE IF EXISTS UserGames;
 DROP TABLE IF EXISTS Lists;
