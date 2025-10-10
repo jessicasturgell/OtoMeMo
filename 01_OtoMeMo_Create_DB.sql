@@ -1,0 +1,127 @@
+﻿-- Delete data from child tables first (optional if you want to keep tables)
+DELETE FROM UserGameLists;
+DELETE FROM UserGames;
+DELETE FROM Lists;
+DELETE FROM GameGenres;
+DELETE FROM GamePlatforms;
+DELETE FROM GameRegions;
+DELETE FROM Users;
+DELETE FROM Games;
+DELETE FROM Genres;
+DELETE FROM Platforms;
+DELETE FROM Regions;
+
+-- Drop tables in reverse dependency order
+DROP TABLE IF EXISTS UserGameLists;
+DROP TABLE IF EXISTS UserGames;
+DROP TABLE IF EXISTS Lists;
+DROP TABLE IF EXISTS GameGenres;
+DROP TABLE IF EXISTS GamePlatforms;
+DROP TABLE IF EXISTS GameRegions;
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Games;
+DROP TABLE IF EXISTS Genres;
+DROP TABLE IF EXISTS Platforms;
+DROP TABLE IF EXISTS Regions;
+
+-- GAMES
+
+CREATE TABLE Games (
+Id INT NOT NULL PRIMARY KEY IDENTITY,
+Title VARCHAR(255) NOT NULL,
+[Description] VARCHAR(MAX) NOT NULL,
+Developer VARCHAR(255),
+Publisher VARCHAR(255),
+YearReleased INT,
+RouteCount INT,
+HasDigital BIT,
+HasPhysical BIT
+);
+
+-- GENRES
+CREATE TABLE Genres (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    Name VARCHAR(255) NOT NULL
+);
+
+-- PLATFORMS
+CREATE TABLE Platforms (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    Name VARCHAR(255) NOT NULL
+);
+
+-- REGIONS
+CREATE TABLE Regions (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    Name VARCHAR(255) NOT NULL
+);
+
+-- GAME-GENRE LINK TABLE
+CREATE TABLE GameGenres (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    GameId INT NOT NULL,
+    GenreId INT NOT NULL,
+    FOREIGN KEY (GameId) REFERENCES Games(Id),
+    FOREIGN KEY (GenreId) REFERENCES Genres(Id)
+);
+
+-- GAME-PLATFORM LINK TABLE
+CREATE TABLE GamePlatforms (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    GameId INT NOT NULL,
+    PlatformId INT NOT NULL,
+    FOREIGN KEY (GameId) REFERENCES Games(Id),
+    FOREIGN KEY (PlatformId) REFERENCES Platforms(Id)
+);
+
+-- GAME-REGION LINK TABLE
+CREATE TABLE GameRegions (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    GameId INT NOT NULL,
+    RegionId INT NOT NULL,
+    FOREIGN KEY (GameId) REFERENCES Games(Id),
+    FOREIGN KEY (RegionId) REFERENCES Regions(Id)
+);
+
+-- USERS
+CREATE TABLE Users (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    DisplayName VARCHAR(255) NOT NULL,
+    DateJoined DATE,
+    Bio VARCHAR(MAX),
+    DisplayPicture VARCHAR(255),
+    Email VARCHAR(255)
+);
+
+-- LISTS
+CREATE TABLE Lists (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    Name VARCHAR(255) NOT NULL,
+    [Description] VARCHAR(MAX),
+    UserId INT NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES Users(Id)
+);
+
+-- USER-GAMES
+CREATE TABLE UserGames (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    UserId INT NOT NULL,
+    GameId INT NOT NULL,
+    CompletedRoutes INT,
+    FavoriteRoute VARCHAR(255),
+    DateStarted DATE,
+    DateFinished DATE,
+    Rating INT,
+    Review VARCHAR(MAX),
+    FOREIGN KEY (UserId) REFERENCES Users(Id),
+    FOREIGN KEY (GameId) REFERENCES Games(Id)
+);
+
+-- USER-GAME LISTS (BRIDGE BETWEEN USERGAMES AND LISTS)
+CREATE TABLE UserGameLists (
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    UserGamesId INT NOT NULL,
+    ListId INT NOT NULL,
+    FOREIGN KEY (UserGamesId) REFERENCES UserGames(Id),
+    FOREIGN KEY (ListId) REFERENCES Lists(Id)
+);
