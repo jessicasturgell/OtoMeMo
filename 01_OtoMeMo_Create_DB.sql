@@ -1,114 +1,133 @@
-﻿-- Drop tables in reverse dependency order
-DROP TABLE IF EXISTS UserGameLists;
-DROP TABLE IF EXISTS UserGames;
-DROP TABLE IF EXISTS Lists;
-DROP TABLE IF EXISTS GameGenres;
-DROP TABLE IF EXISTS GamePlatforms;
-DROP TABLE IF EXISTS GameRegions;
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Games;
-DROP TABLE IF EXISTS Genres;
-DROP TABLE IF EXISTS Platforms;
-DROP TABLE IF EXISTS Regions;
+﻿USE [master]
 
--- GAMES
+IF db_id('OtoMeMo') IS NULL
+    CREATE DATABASE [OtoMeMo]
+GO
 
-CREATE TABLE Games (
-Id INT NOT NULL PRIMARY KEY IDENTITY,
-Title VARCHAR(255) NOT NULL,
-[Description] VARCHAR(MAX) NOT NULL,
-Developer VARCHAR(255),
-Publisher VARCHAR(255),
-YearReleased INT,
-RouteCount INT,
-HasDigital BIT,
-HasPhysical BIT
+USE [OtoMeMo]
+GO
+
+DROP TABLE IF EXISTS [UserGameList];
+DROP TABLE IF EXISTS [UserGame];
+DROP TABLE IF EXISTS [List];
+DROP TABLE IF EXISTS [GameGenre];
+DROP TABLE IF EXISTS [GamePlatform];
+DROP TABLE IF EXISTS [GameRegion];
+DROP TABLE IF EXISTS [Genre];
+DROP TABLE IF EXISTS [Platform];
+DROP TABLE IF EXISTS [Region];
+DROP TABLE IF EXISTS [User];
+DROP TABLE IF EXISTS [Game];
+GO
+
+CREATE TABLE [Game] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [Title] NVARCHAR(255) NOT NULL,
+    [Description] NVARCHAR(MAX) NOT NULL,
+    [Developer] NVARCHAR(255),
+    [Publisher] NVARCHAR(255),
+    [YearReleased] INT,
+    [RouteCount] INT,
+    [HasDigital] BIT NOT NULL DEFAULT 0,
+    [HasPhysical] BIT NOT NULL DEFAULT 0
 );
+GO
 
--- GENRES
-CREATE TABLE Genres (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    Name VARCHAR(255) NOT NULL
+CREATE TABLE [Genre] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [Name] NVARCHAR(255) NOT NULL
 );
+GO
 
--- PLATFORMS
-CREATE TABLE Platforms (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    Name VARCHAR(255) NOT NULL
+CREATE TABLE [Platform] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [Name] NVARCHAR(255) NOT NULL
 );
+GO
 
--- REGIONS
-CREATE TABLE Regions (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    Name VARCHAR(255) NOT NULL
+CREATE TABLE [Region] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [Name] NVARCHAR(255) NOT NULL
 );
+GO
 
--- GAME-GENRE LINK TABLE
-CREATE TABLE GameGenres (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    GameId INT NOT NULL,
-    GenreId INT NOT NULL,
-    FOREIGN KEY (GameId) REFERENCES Games(Id),
-    FOREIGN KEY (GenreId) REFERENCES Genres(Id)
+CREATE TABLE [GameGenre] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [GameId] INT NOT NULL,
+    [GenreId] INT NOT NULL,
+    CONSTRAINT [FK_GameGenre_Game] FOREIGN KEY ([GameId])
+        REFERENCES [Game] ([Id]),
+    CONSTRAINT [FK_GameGenre_Genre] FOREIGN KEY ([GenreId])
+        REFERENCES [Genre] ([Id])
 );
+GO
 
--- GAME-PLATFORM LINK TABLE
-CREATE TABLE GamePlatforms (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    GameId INT NOT NULL,
-    PlatformId INT NOT NULL,
-    FOREIGN KEY (GameId) REFERENCES Games(Id),
-    FOREIGN KEY (PlatformId) REFERENCES Platforms(Id)
+CREATE TABLE [GamePlatform] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [GameId] INT NOT NULL,
+    [PlatformId] INT NOT NULL,
+    CONSTRAINT [FK_GamePlatform_Game] FOREIGN KEY ([GameId])
+        REFERENCES [Game] ([Id]),
+    CONSTRAINT [FK_GamePlatform_Platform] FOREIGN KEY ([PlatformId])
+        REFERENCES [Platform] ([Id])
 );
+GO
 
--- GAME-REGION LINK TABLE
-CREATE TABLE GameRegions (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    GameId INT NOT NULL,
-    RegionId INT NOT NULL,
-    FOREIGN KEY (GameId) REFERENCES Games(Id),
-    FOREIGN KEY (RegionId) REFERENCES Regions(Id)
+CREATE TABLE [GameRegion] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [GameId] INT NOT NULL,
+    [RegionId] INT NOT NULL,
+    CONSTRAINT [FK_GameRegion_Game] FOREIGN KEY ([GameId])
+        REFERENCES [Game] ([Id]),
+    CONSTRAINT [FK_GameRegion_Region] FOREIGN KEY ([RegionId])
+        REFERENCES [Region] ([Id])
 );
+GO
 
--- USERS
-CREATE TABLE Users (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    DisplayName VARCHAR(255) NOT NULL,
-    DateJoined DATE,
-    Bio VARCHAR(MAX),
-    DisplayPicture VARCHAR(255),
-    Email VARCHAR(255)
+CREATE TABLE [User] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [DisplayName] NVARCHAR(255) NOT NULL,
+    [DateJoined] DATETIME NOT NULL DEFAULT GETDATE(),
+    [Bio] NVARCHAR(MAX),
+    [DisplayPicture] NVARCHAR(255),
+    [Email] NVARCHAR(255)
 );
+GO
 
--- LISTS
-CREATE TABLE Lists (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    Name VARCHAR(255) NOT NULL,
-    [Description] VARCHAR(MAX),
-    UserId INT NOT NULL,
-    FOREIGN KEY (UserId) REFERENCES Users(Id)
+CREATE TABLE [List] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [UserId] INT NOT NULL,
+    [Name] NVARCHAR(255) NOT NULL,
+    [Description] NVARCHAR(MAX),
+    CONSTRAINT [FK_List_User] FOREIGN KEY ([UserId])
+        REFERENCES [User] ([Id])
 );
+GO
 
--- USER-GAMES
-CREATE TABLE UserGames (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    UserId INT NOT NULL,
-    GameId INT NOT NULL,
-    CompletedRoutes INT,
-    FavoriteRoute VARCHAR(255),
-    DateStarted DATE,
-    DateFinished DATE,
-    Rating INT,
-    Review VARCHAR(MAX),
-    FOREIGN KEY (UserId) REFERENCES Users(Id),
-    FOREIGN KEY (GameId) REFERENCES Games(Id)
+CREATE TABLE [UserGame] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [UserId] INT NOT NULL,
+    [GameId] INT NOT NULL,
+    [CompletedRoutes] INT,
+    [FavoriteRoute] NVARCHAR(255),
+    [DateStarted] DATE,
+    [DateFinished] DATE,
+    [Rating] INT,
+    [Review] NVARCHAR(MAX),
+    CONSTRAINT [FK_UserGame_User] FOREIGN KEY ([UserId])
+        REFERENCES [User] ([Id]),
+    CONSTRAINT [FK_UserGame_Game] FOREIGN KEY ([GameId])
+        REFERENCES [Game] ([Id])
 );
+GO
 
--- USER-GAME LISTS (BRIDGE BETWEEN USERGAMES AND LISTS)
-CREATE TABLE UserGameLists (
-    Id INT NOT NULL PRIMARY KEY IDENTITY,
-    UserGamesId INT NOT NULL,
-    ListId INT NOT NULL,
-    FOREIGN KEY (UserGamesId) REFERENCES UserGames(Id),
-    FOREIGN KEY (ListId) REFERENCES Lists(Id)
+CREATE TABLE [UserGameList] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [UserGameId] INT NOT NULL,
+    [ListId] INT NOT NULL,
+    CONSTRAINT [FK_UserGameList_UserGame] FOREIGN KEY ([UserGameId])
+        REFERENCES [UserGame] ([Id]),
+    CONSTRAINT [FK_UserGameList_List] FOREIGN KEY ([ListId])
+        REFERENCES [List] ([Id])
 );
+GO

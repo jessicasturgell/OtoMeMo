@@ -18,10 +18,10 @@ INSERT INTO Regions (Name) VALUES
 ('CN'),
 ('OEL');
 
-INSERT INTO Games (Title, [Description], Developer, Publisher, YearReleased, RouteCount, HasDigital, HasPhysical) VALUES
-('Amnesia: Memories', 'A suspenseful romance adventure with multiple love interests.', 'Idea Factory', 'Idea Factory', 2012, 5, 1, 0),
-('Love and Deepspace', 'Sci-fi romance among space explorers.', 'Papergames', 'Infold', 2024, 0, 1, 0),
-('Mystic Messenger', 'Interactive modern dating sim through a messaging app.', 'Cheritz', 'Cheritz', 2016, 7, 1, 0);
+INSERT INTO Game (Title, [Description], Developer, Publisher, YearReleased, RouteCount, HasDigital, HasPhysical) VALUES
+('Amnesia: Memories', 'A sprite called Orion accidentally attaches himself to the Heroine, causing her to lose all her memories. In order for Orion to free himself and return to his own world, the Heroine must regain these memories through interactions with important people and places in her life. Orion acts as her guide, giving her advice and perspective, and providing her with an inner voice. Orion also serves as the main narrator to the story especially in the later story sequels.', 'Idea Factory', 'Idea Factory', 2012, 5, 1, 1),
+('Love and Deepspace', 'A immersive 3D Interactive Game where the player assumes the role of a Deepspace Hunter in a sci-fi universe.', 'Papergames', 'Infold', 2024, 0, 1, 0),
+('Mystic Messenger', "In Mystic Messenger, the player takes the role of a female character whose name is chosen by the player. The female protagonist downloads a mysterious app that leads her into living in either a closed, secured apartment owned by Rika, the founder of a charity organization known as the RFA (Rika's Fundraising Association), or the Mint Eye HQ. She meets the remaining members of the RFA and is tasked to organize a party by inviting guests. In Another Story, Unknown tricks the protagonist into playing the game and brings her to Mint Eye, keeping her by his side. The protagonist is able to choose one out of 7 available routes, each with their own backgrounds, as well as finding out the truth behind the RFA.", 'Cheritz', 'Cheritz', 2016, 7, 1, 0);
 
 INSERT INTO GameGenres (GameId, GenreId) VALUES
 (1, 1), -- Amnesia: Modern
