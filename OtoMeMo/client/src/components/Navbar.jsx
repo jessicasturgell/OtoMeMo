@@ -1,17 +1,14 @@
-import React, { useState } from "react";
-import { Nav, NavItem, NavLink } from "reactstrap";
-
 function OtoNavbar() {
   return (
-    <div>
-      <Nav className="rose-div">
-        <NavItem>
-          <NavLink href="/">Home</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/games">Games</NavLink>
-        </NavItem>
-      </Nav>
+    <div className="bg-rose-300 p-10 shadow-md">
+      <nav className="flex text-white justify-between">
+        <a href="/">OtoMeMo</a>
+        <div className="flex gap-2">
+          <a href="/games">Games</a>
+          <a href="/">Something</a>
+          <a href="/">Something</a>
+        </div>
+      </nav>
     </div>
   );
 }
