@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAllGames } from "../services/GameService.jsx";
+import { Card, CardText, CardTitle } from "reactstrap";
 
 const GameList = () => {
   const [games, setGames] = useState([]);
@@ -15,12 +16,10 @@ const GameList = () => {
   return (
     <div>
       {games.map((game) => (
-        <div key={game.id}>
-          <p>
-            <strong>{game.title}</strong>
-          </p>
-          <p>{game.description}</p>
-        </div>
+        <Card key={game.id} className="p-3 m-3">
+          <CardTitle tag="h5">{game.title}</CardTitle>
+          <CardText>{game.description}</CardText>
+        </Card>
       ))}
     </div>
   );

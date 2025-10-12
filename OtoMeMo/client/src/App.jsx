@@ -1,14 +1,24 @@
-import React from "react";
 import "./index.css";
 import GameList from "./components/GameList.jsx";
-import { BrowserRouter } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
+import OtoNavbar from "./components/Navbar.jsx";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <GameList />
-      </BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <OtoNavbar />
+              <Outlet />
+            </>
+          }
+        >
+          <Route path="games" element={<GameList />} />
+        </Route>
+      </Routes>
     </>
   );
 }
