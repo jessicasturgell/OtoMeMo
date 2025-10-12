@@ -1,62 +1,47 @@
-﻿INSERT INTO Genres (Name) VALUES
-('Modern'),
-('Fantasy'),
-('Mystery'),
-('Historical'),
-('Sci-fi'),
-('Supernatural');
+﻿USE [OtoMeMo];
+GO
 
-INSERT INTO Platforms (Name) VALUES
-('iOS'),
-('Android'),
-('PC'),
-('Switch');
+INSERT INTO [User] (DisplayName, Bio, DisplayPicture, Email)
+VALUES
+('AlexH', 'Indie game enthusiast and visual novel fan.', 'alexh.png', 'alexh@example.com'),
+('JamieL', 'Collector of otome games and retro consoles.', 'jamiel.jpg', 'jamie.l@example.com'),
+('SammyQ', 'Loves narrative-driven games and romance stories.', 'sammyq.png', 'sammyq@example.com');
+GO
 
-INSERT INTO Regions (Name) VALUES
-('Global'),
-('JP'),
-('CN'),
-('OEL');
+INSERT INTO [Game] (Title, Description, Developer, Publisher, YearReleased)
+VALUES
+('Amnesia: Memories', 'A popular otome game where the protagonist suffers from amnesia and navigates multiple romantic storylines.', 'Idea Factory', 'Idea Factory', 2011),
+('Amnesia: Later x Crowd', 'A follow-up to Amnesia: Memories introducing new characters and scenarios.', 'Idea Factory', 'Idea Factory', 2016),
+('Cupid Parasite', 'The protagonist works in a matchmaking company, helping clients find love while navigating her own romance.', 'Voltage Inc.', 'Voltage Inc.', 2016),
+('Diabolik Lovers', 'A dark vampire romance visual novel with six seductive vampire brothers.', 'Rejet', 'Idea Factory', 2012),
+('Mr. Love: Queen''s Choice', 'A romance game mixing dating sims with detective elements, where the player interacts with multiple male leads.', 'Papergames', 'Papergames', 2019),
+('Tears of Themis', 'Mystery romance game blending investigation, courtroom drama, and romantic storylines.', 'miHoYo', 'miHoYo', 2020),
+('Lovebrush Chronicles', 'Fantasy otome where the protagonist can enter magical paintings to meet potential love interests.', 'Voltage Inc.', 'Voltage Inc.', 2018),
+('Love and Deepspace', 'Sci-fi otome adventure where romance unfolds across interstellar missions.', 'Voltage Inc.', 'Voltage Inc.', 2021);
+GO
 
-INSERT INTO Game (Title, [Description], Developer, Publisher, YearReleased, RouteCount, HasDigital, HasPhysical) VALUES
-('Amnesia: Memories', 'A sprite called Orion accidentally attaches himself to the Heroine, causing her to lose all her memories. In order for Orion to free himself and return to his own world, the Heroine must regain these memories through interactions with important people and places in her life. Orion acts as her guide, giving her advice and perspective, and providing her with an inner voice. Orion also serves as the main narrator to the story especially in the later story sequels.', 'Idea Factory', 'Idea Factory', 2012, 5, 1, 1),
-('Love and Deepspace', 'A immersive 3D Interactive Game where the player assumes the role of a Deepspace Hunter in a sci-fi universe.', 'Papergames', 'Infold', 2024, 0, 1, 0),
-('Mystic Messenger', "In Mystic Messenger, the player takes the role of a female character whose name is chosen by the player. The female protagonist downloads a mysterious app that leads her into living in either a closed, secured apartment owned by Rika, the founder of a charity organization known as the RFA (Rika's Fundraising Association), or the Mint Eye HQ. She meets the remaining members of the RFA and is tasked to organize a party by inviting guests. In Another Story, Unknown tricks the protagonist into playing the game and brings her to Mint Eye, keeping her by his side. The protagonist is able to choose one out of 7 available routes, each with their own backgrounds, as well as finding out the truth behind the RFA.", 'Cheritz', 'Cheritz', 2016, 7, 1, 0);
+INSERT INTO [List] (UserId, Name)
+VALUES
+(1, 'Played'),
+(1, 'Playing'),
+(1, 'Want to Play'),
+(2, 'Played'),
+(2, 'Playing'),
+(2, 'Want to Play'),
+(3, 'Played'),
+(3, 'Playing'),
+(3, 'Want to Play');
+GO
 
-INSERT INTO GameGenres (GameId, GenreId) VALUES
-(1, 1), -- Amnesia: Modern
-(1, 3), -- Amnesia: Mystery
-(2, 2), -- Love and Deepspace: Fantasy
-(2, 5), -- Love and Deepspace: Sci-fi
-(3, 1); -- Mystic Messenger: Modern
-
-INSERT INTO GamePlatforms (GameId, PlatformId) VALUES
-(1, 4), -- Amnesia: Switch
-(2, 1), -- Love and Deepspace: iOS
-(2, 2), -- Love and Deepspace: Android
-(3, 1), -- Mystic Messenger: iOS
-(3, 2); -- Mystic Messenger: Android
-
-INSERT INTO GameRegions (GameId, RegionId) VALUES
-(1, 1), -- Amnesia: Global
-(2, 1), -- Love and Deepspace: Global
-(3, 1); -- Mystic Messenger: Global
-
-INSERT INTO Users (DisplayName, DateJoined, Bio, DisplayPicture, Email) VALUES
-('Daisy', '2025-10-09', 'Otome game enthusiast.', 'https://example.com/pfp.jpg', 'Daisy@example.com'),
-('Alex', '2025-09-01', 'Loves fantasy routes.', NULL, 'alex@example.com');
-
-INSERT INTO Lists (Name, [Description], UserId) VALUES
-('Completed', 'Games I have fully played.', 1),
-('Wishlist', 'Games I want to try.', 1),
-('Favorites', 'My top love interests.', 2);
-
-INSERT INTO UserGames (UserId, GameId, CompletedRoutes, FavoriteRoute, DateStarted, DateFinished, Rating, Review) VALUES
-(1, 1, 5, 'Ikki', '2025-08-15', '2025-09-01', 5, 'Loved every route!'),
-(1, 3, 0, NULL, '2025-09-15', NULL, NULL, NULL),
-(2, 2, 2, 'Sylus', '2025-10-01', NULL, 5, 'Space romance is amazing.');
-
-INSERT INTO UserGameLists (UserGamesId, ListId) VALUES
-(1, 1), -- Daisy's Amnesia: Memories in Completed
-(2, 2), -- Daisy's Mystic Messenger in Wishlist
-(3, 3); -- Alex's Love and Deepspace in Favorites
+INSERT INTO [ListGame] (ListId, GameId, DateStarted, DateFinished, Rating, Review)
+VALUES
+(1, 1, '2024-01-15', '2024-02-10', 9, 'Classic amnesia romance. Multiple playthroughs recommended.'),
+(2, 2, '2024-02-15', NULL, NULL, NULL),
+(3, 6, NULL, NULL, NULL, NULL),
+(4, 3, '2023-12-01', '2023-12-20', 8, 'Fun matchmaking game with cute art.'),
+(5, 5, '2024-03-05', NULL, NULL, NULL),
+(6, 8, NULL, NULL, NULL, NULL),
+(7, 4, '2023-11-05', '2023-12-01', 7, 'Dark vampire romance, not for everyone.'),
+(8, 7, '2024-01-20', NULL, NULL, NULL),
+(9, 2, NULL, NULL, NULL, NULL);
+GO
