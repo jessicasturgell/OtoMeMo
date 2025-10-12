@@ -16,7 +16,7 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT Id, Title, Description, Developer, Publisher, YearReleased, RouteCount, HasDigital, HasPhysical
+                          SELECT Id, Title, Description, Developer, Publisher, YearReleased
                           FROM Game
                           ORDER BY Title";
 
@@ -33,9 +33,6 @@ namespace OtoMeMo.Repositories
                             Developer = DbUtils.GetString(reader, "Developer"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
                             YearReleased = DbUtils.GetInt(reader, "YearReleased"),
-                            RouteCount = DbUtils.GetInt(reader, "RouteCount"),
-                            HasDigital = reader.GetBoolean(reader.GetOrdinal("HasDigital")) ? 1 : 0,
-                            HasPhysical = reader.GetBoolean(reader.GetOrdinal("HasPhysical")) ? 1 : 0
                         });
                     }
 
@@ -53,7 +50,7 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT Id, Title, Description, Developer, Publisher, YearReleased, RouteCount, HasDigital, HasPhysical
+                          SELECT Id, Title, Description, Developer, Publisher, YearReleased
                           FROM Game
                           WHERE Id = @Id";
 
@@ -71,10 +68,7 @@ namespace OtoMeMo.Repositories
                             Description = DbUtils.GetString(reader, "Description"),
                             Developer = DbUtils.GetString(reader, "Developer"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
-                            YearReleased = DbUtils.GetInt(reader, "YearReleased"),
-                            RouteCount = DbUtils.GetInt(reader, "RouteCount"),
-                            HasDigital = reader.GetBoolean(reader.GetOrdinal("HasDigital")) ? 1 : 0,
-                            HasPhysical = reader.GetBoolean(reader.GetOrdinal("HasPhysical")) ? 1 : 0
+                            YearReleased = DbUtils.GetInt(reader, "YearReleased")
                         };
                     }
 
@@ -92,18 +86,15 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Game (Title, Description, Developer, Publisher, YearReleased, RouteCount, HasDigital, HasPhysical)
+                        INSERT INTO Game (Title, Description, Developer, Publisher, YearReleased)
                         OUTPUT INSERTED.ID
-                        VALUES (@Title, @Description, @Developer, @Publisher, @YearReleased, @RouteCount, @HasDigital, @HasPhysical)";
+                        VALUES (@Title, @Description, @Developer, @Publisher, @YearReleased)";
 
                     DbUtils.AddParameter(cmd, "@Title", game.Title);
                     DbUtils.AddParameter(cmd, "@Description", game.Description);
                     DbUtils.AddParameter(cmd, "@Developer", game.Developer);
                     DbUtils.AddParameter(cmd, "@Publisher", game.Publisher);
                     DbUtils.AddParameter(cmd, "@YearReleased", game.YearReleased);
-                    DbUtils.AddParameter(cmd, "@RouteCount", game.RouteCount);
-                    DbUtils.AddParameter(cmd, "@HasDigital", game.HasDigital);
-                    DbUtils.AddParameter(cmd, "@HasPhysical", game.HasPhysical);
 
                     game.Id = (int)cmd.ExecuteScalar();
                 }
@@ -122,10 +113,7 @@ namespace OtoMeMo.Repositories
                             Description = @Description,
                             Developer = @Developer,
                             Publisher = @Publisher,
-                            YearReleased = @YearReleased,
-                            RouteCount = @RouteCount,
-                            HasDigital = @HasDigital,
-                            HasPhysical = @HasPhysical
+                            YearReleased = @YearReleased
                         WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Title", game.Title);
@@ -133,9 +121,6 @@ namespace OtoMeMo.Repositories
                     DbUtils.AddParameter(cmd, "@Developer", game.Developer);
                     DbUtils.AddParameter(cmd, "@Publisher", game.Publisher);
                     DbUtils.AddParameter(cmd, "@YearReleased", game.YearReleased);
-                    DbUtils.AddParameter(cmd, "@RouteCount", game.RouteCount);
-                    DbUtils.AddParameter(cmd, "@HasDigital", game.HasDigital);
-                    DbUtils.AddParameter(cmd, "@HasPhysical", game.HasPhysical);
                     DbUtils.AddParameter(cmd, "@Id", game.Id);
 
                     cmd.ExecuteNonQuery();
