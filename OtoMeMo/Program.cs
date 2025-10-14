@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authentication.Cookies;
 using OtoMeMo.Repositories;
 
 namespace OtoMeMo
@@ -15,12 +16,14 @@ namespace OtoMeMo
 
             // Add services to the container.
             builder.Services.AddTransient<IGameRepository, GameRepository>();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Users/LogIn");
 
-            var app = builder.Build();
+        var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -31,8 +34,8 @@ namespace OtoMeMo
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

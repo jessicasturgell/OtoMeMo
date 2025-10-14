@@ -32,7 +32,7 @@ namespace OtoMeMo.Repositories
                             Description = DbUtils.GetString(reader, "Description"),
                             Developer = DbUtils.GetString(reader, "Developer"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
-                            YearReleased = DbUtils.GetInt(reader, "YearReleased"),
+                            YearReleased = DbUtils.GetInt(reader, "YearReleased")
                         });
                     }
 
