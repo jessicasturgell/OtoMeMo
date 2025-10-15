@@ -89,7 +89,7 @@ namespace OtoMeMo.Repositories
                     cmd.CommandText = @"
                         INSERT INTO Game (Title, Img, Description, Developer, Publisher, YearReleased)
                         OUTPUT INSERTED.ID
-                        VALUES (@Title, @Description, @Developer, @Publisher, @YearReleased)";
+                        VALUES (@Title, @Img, @Description, @Developer, @Publisher, @YearReleased)";
 
                     DbUtils.AddParameter(cmd, "@Title", game.Title);
                     DbUtils.AddParameter(cmd, "@Img", game.Img);
@@ -112,7 +112,7 @@ namespace OtoMeMo.Repositories
                     cmd.CommandText = @"
                         UPDATE Game
                         SET Title = @Title,
-                            Img = @Img
+                            Img = @Img,
                             Description = @Description,
                             Developer = @Developer,
                             Publisher = @Publisher,
