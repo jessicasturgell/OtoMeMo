@@ -17,6 +17,7 @@ namespace OtoMeMo
             // Add services to the container.
             builder.Services.AddTransient<IGameRepository, GameRepository>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<IListRepository, ListRepository>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
