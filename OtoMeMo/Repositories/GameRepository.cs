@@ -16,9 +16,8 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT Id, Title, Description, Developer, Publisher, YearReleased
-                          FROM Game
-                          ORDER BY Title";
+                          SELECT Id, Title, Img, Description, Developer, Publisher, YearReleased
+                          FROM Game";
 
                     var reader = cmd.ExecuteReader();
 
@@ -29,6 +28,7 @@ namespace OtoMeMo.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Title = DbUtils.GetString(reader, "Title"),
+                            Img = DbUtils.GetString(reader, "Img"),
                             Description = DbUtils.GetString(reader, "Description"),
                             Developer = DbUtils.GetString(reader, "Developer"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
@@ -50,7 +50,7 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT Id, Title, Description, Developer, Publisher, YearReleased
+                          SELECT Id, Title, Img, Description, Developer, Publisher, YearReleased
                           FROM Game
                           WHERE Id = @Id";
 
@@ -65,6 +65,7 @@ namespace OtoMeMo.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Title = DbUtils.GetString(reader, "Title"),
+                            Img = DbUtils.GetString(reader, "Img"),
                             Description = DbUtils.GetString(reader, "Description"),
                             Developer = DbUtils.GetString(reader, "Developer"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
@@ -86,11 +87,12 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Game (Title, Description, Developer, Publisher, YearReleased)
+                        INSERT INTO Game (Title, Img, Description, Developer, Publisher, YearReleased)
                         OUTPUT INSERTED.ID
                         VALUES (@Title, @Description, @Developer, @Publisher, @YearReleased)";
 
                     DbUtils.AddParameter(cmd, "@Title", game.Title);
+                    DbUtils.AddParameter(cmd, "@Img", game.Img);
                     DbUtils.AddParameter(cmd, "@Description", game.Description);
                     DbUtils.AddParameter(cmd, "@Developer", game.Developer);
                     DbUtils.AddParameter(cmd, "@Publisher", game.Publisher);
@@ -110,6 +112,7 @@ namespace OtoMeMo.Repositories
                     cmd.CommandText = @"
                         UPDATE Game
                         SET Title = @Title,
+                            Img = @Img
                             Description = @Description,
                             Developer = @Developer,
                             Publisher = @Publisher,
@@ -117,6 +120,7 @@ namespace OtoMeMo.Repositories
                         WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Title", game.Title);
+                    DbUtils.AddParameter(cmd, "@Img", game.Img);
                     DbUtils.AddParameter(cmd, "@Description", game.Description);
                     DbUtils.AddParameter(cmd, "@Developer", game.Developer);
                     DbUtils.AddParameter(cmd, "@Publisher", game.Publisher);

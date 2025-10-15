@@ -16,6 +16,7 @@ GO
 CREATE TABLE [Game] (
     [Id] INT PRIMARY KEY IDENTITY(1,1),
     [Title] NVARCHAR(255) NOT NULL,
+    [Img] NVARCHAR(255),
     [Description] NVARCHAR(MAX) NOT NULL,
     [Developer] NVARCHAR(255),
     [Publisher] NVARCHAR(255),

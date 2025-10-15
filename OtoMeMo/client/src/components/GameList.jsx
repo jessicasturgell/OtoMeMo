@@ -17,7 +17,7 @@ const GameList = () => {
       {games.map((game) => (
         <div
           key={game.id}
-          className="m-2 p-2 border-1 border-rose-300/50 border-solid shadow-md bg-white text-rose-950"
+          className="m-2 p-2 border-1 border-fuchsia-300/50 border-solid shadow-md bg-white text-pink-950"
         >
           <h1>{game.title}</h1>
           <p>{game.description}</p>
