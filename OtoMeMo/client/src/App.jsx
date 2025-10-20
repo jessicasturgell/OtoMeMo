@@ -1,14 +1,11 @@
 import OtoNavbar from "./components/Navbar.jsx";
-import "./index.css";
-import Router from "react-router-dom";
+import ApplicationViews from "./views/ApplicationViews.jsx";
 
 function App() {
   return (
     <>
-      <Router>
-        <OtoNavbar />
-        <ApplicationViews />
-      </Router>
+      <OtoNavbar />
+      <ApplicationViews />
     </>
   );
 }

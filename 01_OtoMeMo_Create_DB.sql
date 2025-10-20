@@ -31,6 +31,7 @@ CREATE TABLE [User] (
     [Bio] NVARCHAR(MAX),
     [DisplayPicture] NVARCHAR(255),
     [Email] NVARCHAR(255)
+    [IsAdmin] BIT
 );
 GO
 

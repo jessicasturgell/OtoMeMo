@@ -1,5 +1,4 @@
-import "./index.css";
-import GameList from "./components/GameList.jsx";
+import GameList from "../components/GameList.jsx";
 import { Route, Routes } from "react-router-dom";
 
 function ApplicationViews() {
