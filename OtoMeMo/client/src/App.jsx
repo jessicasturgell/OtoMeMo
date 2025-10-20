@@ -1,12 +1,32 @@
-import OtoNavbar from "./components/Navbar.jsx";
+import { Outlet, Route, Routes } from "react-router-dom";
 import ApplicationViews from "./views/ApplicationViews.jsx";
+import { Login } from "./components/auth/Login.jsx";
+import { Authorized } from "./views/Authorized.jsx";
+import OtoNavbar from "./components/Navbar.jsx";
 
 function App() {
   return (
-    <>
-      <OtoNavbar />
-      <ApplicationViews />
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <>
+            <OtoNavbar />
+            <Outlet />
+          </>
+        }
+      >
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="*"
+          element={
+            <Authorized>
+              <ApplicationViews />
+            </Authorized>
+          }
+        />
+      </Route>
+    </Routes>
   );
 }
 
