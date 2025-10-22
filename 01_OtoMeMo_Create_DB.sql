@@ -50,6 +50,7 @@ CREATE TABLE [User] (
     [Id] INT PRIMARY KEY IDENTITY(1,1),
     [DisplayName] NVARCHAR(255),
     [DateJoined] DATETIME,
+    [LastLogin] DATETIME,
     [Bio] NVARCHAR(MAX),
     [DisplayPicture] NVARCHAR(255),
     [Email] NVARCHAR(255),
@@ -86,8 +87,8 @@ CREATE TABLE [ListGame] (
     [Id] INT PRIMARY KEY IDENTITY(1,1),
     [ListId] INT,
     [GameId] INT,
-    [DateStarted] DATE,
-    [DateFinished] DATE,
+    [DateStarted] DATETIME,
+    [DateFinished] DATETIME,
     [Rating] INT,
     [Review] NVARCHAR(MAX),
     CONSTRAINT [FK_ListGame_List] FOREIGN KEY ([ListId])
