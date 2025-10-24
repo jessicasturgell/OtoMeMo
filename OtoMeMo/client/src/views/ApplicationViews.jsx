@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import GameList from "../components/GameList.jsx";
+import GameList from "../components/games/GameList.jsx";
 import { Route, Routes } from "react-router-dom";
 
 function ApplicationViews() {

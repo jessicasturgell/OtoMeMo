@@ -15,7 +15,7 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, DisplayName, DateJoined, Bio, DisplayPicture, Email
+                        SELECT Id, DisplayName, DateJoined, LastLogin, Bio, DisplayPicture, Email
                         FROM [User]";
 
                     var reader = cmd.ExecuteReader();
@@ -29,7 +29,9 @@ namespace OtoMeMo.Repositories
                             DisplayName = DbUtils.GetString(reader, "DisplayName"),
                             Bio = DbUtils.GetString(reader, "Bio"),
                             DisplayPicture = DbUtils.GetString(reader, "DisplayPicture"),
-                            Email = DbUtils.GetString(reader, "Email")
+                            Email = DbUtils.GetString(reader, "Email"),
+                            DateJoined = DbUtils.GetDateTime(reader, "DateJoined"),
+                            LastLogin = DbUtils.GetDateTime(reader, "LastLogin")
                         });
                     }
 
@@ -47,7 +49,7 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, DisplayName, DateJoined, Bio, DisplayPicture, Email
+                        SELECT Id, DisplayName, DateJoined, LastLogin, Bio, DisplayPicture, Email
                         FROM [User]
                         WHERE Id = @Id";
 
@@ -65,6 +67,8 @@ namespace OtoMeMo.Repositories
                             Bio = DbUtils.GetString(reader, "Bio"),
                             DisplayPicture = DbUtils.GetString(reader, "DisplayPicture"),
                             Email = DbUtils.GetString(reader, "Email"),
+                            DateJoined = DbUtils.GetDateTime(reader, "DateJoined"),
+                            LastLogin = DbUtils.GetDateTime(reader, "LastLogin")
                         };
                     }
 
@@ -82,12 +86,13 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO [User] (DisplayName, DateJoined, Bio, DisplayPicture, Email)
+                        INSERT INTO [User] (DisplayName, DateJoined, LastLogin, Bio, DisplayPicture, Email)
                         OUTPUT INSERTED.ID
-                        VALUES (@DisplayName, @DateJoined, @Bio, @DisplayPicture, @Email)";
+                        VALUES (@DisplayName, @DateJoined, @LastLogin, @Bio, @DisplayPicture, @Email)";
 
                     DbUtils.AddParameter(cmd, "@DisplayName", user.DisplayName);
                     DbUtils.AddParameter(cmd, "@DateJoined", user.DateJoined);
+                    DbUtils.AddParameter(cmd, "@LastLogin", user.LastLogin);
                     DbUtils.AddParameter(cmd, "@Bio", user.Bio);
                     DbUtils.AddParameter(cmd, "@DisplayPicture", user.DisplayPicture);
                     DbUtils.AddParameter(cmd, "@Email", user.Email);
@@ -107,6 +112,7 @@ namespace OtoMeMo.Repositories
                         UPDATE [User]
                         SET DisplayName = @DisplayName,
                             DateJoined = @DateJoined,
+                            LastLogin = @LastLogin,
                             Bio = @Bio,
                             DisplayPicture = @DisplayPicture,
                             Email = @Email
@@ -114,6 +120,7 @@ namespace OtoMeMo.Repositories
 
                     DbUtils.AddParameter(cmd, "@DisplayName", user.DisplayName);
                     DbUtils.AddParameter(cmd, "@DateJoined", user.DateJoined);
+                    DbUtils.AddParameter(cmd, "@LastLogin", user.LastLogin);
                     DbUtils.AddParameter(cmd, "@Bio", user.Bio);
                     DbUtils.AddParameter(cmd, "@DisplayPicture", user.DisplayPicture);
                     DbUtils.AddParameter(cmd, "@Email", user.Email);

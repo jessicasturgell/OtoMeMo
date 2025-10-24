@@ -35,6 +35,10 @@ namespace OtoMeMo.Controllers
         [HttpPost]
         public IActionResult User(User user)
         {
+            user.DateJoined = DateTime.Now;
+            user.LastLogin = DateTime.Now;
+            user.Bio = "";
+            user.DisplayPicture = "";
             _userRepository.Add(user);
             return CreatedAtAction("Get", new { id = user.Id }, user);
         }

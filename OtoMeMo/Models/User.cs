@@ -10,6 +10,7 @@ namespace OtoMeMo.Models
         public string DisplayName { get; set; }
 
         public DateTime DateJoined { get; set; }
+        public DateTime LastLogin { get; set; }
 
         public string Bio { get; set; }
 
@@ -17,6 +18,5 @@ namespace OtoMeMo.Models
 
         [Required]
         public string Email { get; set; }
-        public bool IsAdmin { get; set; }
     }
 }

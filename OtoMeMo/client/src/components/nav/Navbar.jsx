@@ -7,10 +7,10 @@ function OtoNavbar() {
         <span className="cherry-bomb-one-regular text-rose-400">
           <Link to="/">OtoMeMo</Link>
         </span>
-        <div className="flex gap-2 text-rose-400">
+        <div className="flex gap-5 text-rose-400">
           <Link to="/games">Games</Link>
-          <Link to="/">Something</Link>
-          <Link to="/">Something</Link>
+          <Link to="/login">Log In</Link>
+          <Link to="/register">Register</Link>
         </div>
       </nav>
     </div>

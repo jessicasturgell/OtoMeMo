@@ -2,7 +2,8 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import ApplicationViews from "./views/ApplicationViews.jsx";
 import { Login } from "./components/auth/Login.jsx";
 import { Authorized } from "./views/Authorized.jsx";
-import OtoNavbar from "./components/Navbar.jsx";
+import OtoNavbar from "./components/nav/Navbar.jsx";
+import { Register } from "./components/auth/Register.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         }
       >
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="*"
           element={
