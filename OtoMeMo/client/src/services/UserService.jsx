@@ -9,3 +9,9 @@ export const createUser = (user) => {
     body: JSON.stringify(user),
   }).then((res) => res.json());
 };
+
+export const getUserByDisplayName = (displayName) => {
+  return fetch(
+    `${baseUrl}/GetUserByDisplayName?displayName=${displayName}`
+  ).then((res) => res.json());
+};

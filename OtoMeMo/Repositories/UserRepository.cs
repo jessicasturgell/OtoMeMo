@@ -78,6 +78,43 @@ namespace OtoMeMo.Repositories
                 }
             }
         }
+        public User GetUserByDisplayName(string displayName)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT Id, DisplayName, DateJoined, LastLogin, Bio, DisplayPicture, Email
+                        FROM [User]
+                        WHERE DisplayName = @displayName";
+
+                    DbUtils.AddParameter(cmd, "@displayName", displayName);
+
+                    User user = null;
+
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        user = new User()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                            DateJoined = DbUtils.GetDateTime(reader, "DateJoined"),
+                            LastLogin = DbUtils.GetDateTime(reader, "LastLogin"),
+                            Bio = DbUtils.GetString(reader, "Bio"),
+                            DisplayPicture = DbUtils.GetString(reader, "DisplayPicture")
+                        };
+                    }
+
+                    reader.Close();
+
+                    return user;
+                }
+            }
+        }
         public void Add(User user)
         {
             using (var conn = Connection)
