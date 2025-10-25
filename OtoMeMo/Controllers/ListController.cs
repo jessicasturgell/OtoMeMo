@@ -33,7 +33,7 @@ namespace OtoMeMo.Controllers
         }
 
         [HttpPost]
-        public IActionResult List(List list)
+        public IActionResult Post(List list)
         {
             _listRepository.Add(list);
             return CreatedAtAction("Get", new { id = list.Id }, list);

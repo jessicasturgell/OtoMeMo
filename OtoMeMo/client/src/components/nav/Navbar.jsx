@@ -9,8 +9,19 @@ function OtoNavbar() {
         </span>
         <div className="flex gap-5 text-rose-400">
           <Link to="/games">Games</Link>
-          <Link to="/login">Log In</Link>
-          <Link to="/register">Register</Link>
+          {localStorage.getItem("otomemo_user") ? (
+            <Link
+              to=""
+              onClick={() => {
+                localStorage.removeItem("otomemo_user");
+                navigate("/login", { replace: true });
+              }}
+            >
+              Logout
+            </Link>
+          ) : (
+            <Link to="/login">Log In</Link>
+          )}
         </div>
       </nav>
     </div>

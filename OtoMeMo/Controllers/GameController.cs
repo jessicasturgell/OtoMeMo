@@ -34,7 +34,7 @@ namespace OtoMeMo.Controllers
         }
 
         [HttpPost]
-        public IActionResult Game(Game game)
+        public IActionResult Post(Game game)
         {
             _gameRepository.Add(game);
             return CreatedAtAction("Get", new { id = game.Id }, game);

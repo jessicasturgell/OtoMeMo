@@ -33,7 +33,7 @@ namespace OtoMeMo.Controllers
         }
 
         [HttpPost]
-        public IActionResult User(User user)
+        public IActionResult Post(User user)
         {
             user.DateJoined = DateTime.Now;
             user.LastLogin = DateTime.Now;
