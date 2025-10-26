@@ -16,7 +16,7 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT Id, Title, Img, Description, Developer, Publisher, YearReleased
+                          SELECT Id, TitleEnglish, TitleRomanized, TitleCharacters, Img, [Description], Developer, Publisher, OriginalLanguage, YearReleasedOriginal, YearReleasedGlobal 
                           FROM Game";
 
                     var reader = cmd.ExecuteReader();
@@ -27,12 +27,16 @@ namespace OtoMeMo.Repositories
                         games.Add(new Game()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Title = DbUtils.GetString(reader, "Title"),
+                            TitleEnglish = DbUtils.GetString(reader, "TitleEnglish"),
+                            TitleCharacters = DbUtils.GetString(reader, "TitleCharacters"),
+                            TitleRomanized = DbUtils.GetString(reader, "TitleRomanized"),
                             Img = DbUtils.GetString(reader, "Img"),
                             Description = DbUtils.GetString(reader, "Description"),
                             Developer = DbUtils.GetString(reader, "Developer"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
-                            YearReleased = DbUtils.GetInt(reader, "YearReleased")
+                            OriginalLanguage = DbUtils.GetString(reader, "OriginalLanguage"),
+                            YearReleasedOriginal = DbUtils.GetInt(reader, "YearReleasedOriginal"),
+                            YearReleasedGlobal = DbUtils.GetInt(reader, "YearReleasedGlobal")
                         });
                     }
 
@@ -50,7 +54,7 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT Id, Title, Img, Description, Developer, Publisher, YearReleased
+                          SELECT Id, TitleEnglish, TitleRomanized, TitleCharacters, Img, [Description], Developer, Publisher, OriginalLanguage, YearReleasedOriginal, YearReleasedGlobal
                           FROM Game
                           WHERE Id = @Id";
 
@@ -64,12 +68,16 @@ namespace OtoMeMo.Repositories
                         game = new Game()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Title = DbUtils.GetString(reader, "Title"),
+                            TitleEnglish = DbUtils.GetString(reader, "TitleEnglish"),
+                            TitleCharacters = DbUtils.GetString(reader, "TitleCharacters"),
+                            TitleRomanized = DbUtils.GetString(reader, "TitleRomanized"),
                             Img = DbUtils.GetString(reader, "Img"),
                             Description = DbUtils.GetString(reader, "Description"),
                             Developer = DbUtils.GetString(reader, "Developer"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
-                            YearReleased = DbUtils.GetInt(reader, "YearReleased")
+                            OriginalLanguage = DbUtils.GetString(reader, "OriginalLanguage"),
+                            YearReleasedOriginal = DbUtils.GetInt(reader, "YearReleasedOriginal"),
+                            YearReleasedGlobal = DbUtils.GetInt(reader, "YearReleasedGlobal")
                         };
                     }
 
@@ -87,16 +95,20 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Game (Title, Img, Description, Developer, Publisher, YearReleased)
+                        INSERT INTO Game (Id, TitleEnglish, TitleRomanized, TitleCharacters, Img, [Description], Developer, Publisher, OriginalLanguage, YearReleasedOriginal, YearReleasedGlobal)
                         OUTPUT INSERTED.ID
-                        VALUES (@Title, @Img, @Description, @Developer, @Publisher, @YearReleased)";
+                        VALUES (@TitleEnglish, @TitleRomanized, @TitleCharacters, @Img, @Description, @Developer, @Publisher, @OriginalLanguage, @YearReleasedOriginal, @YearReleasedGlobal)";
 
-                    DbUtils.AddParameter(cmd, "@Title", game.Title);
+                    DbUtils.AddParameter(cmd, "@TitleEnglish", game.TitleEnglish);
+                    DbUtils.AddParameter(cmd, "@TitleRomanized", game.TitleRomanized);
+                    DbUtils.AddParameter(cmd, "@TitleCharacters", game.TitleCharacters);
                     DbUtils.AddParameter(cmd, "@Img", game.Img);
                     DbUtils.AddParameter(cmd, "@Description", game.Description);
                     DbUtils.AddParameter(cmd, "@Developer", game.Developer);
                     DbUtils.AddParameter(cmd, "@Publisher", game.Publisher);
-                    DbUtils.AddParameter(cmd, "@YearReleased", game.YearReleased);
+                    DbUtils.AddParameter(cmd, "@OriginalLanguage", game.OriginalLanguage);
+                    DbUtils.AddParameter(cmd, "@YearReleasedGlobal", game.YearReleasedGlobal);
+                    DbUtils.AddParameter(cmd, "@YearReleasedOriginal", game.YearReleasedOriginal);
 
                     game.Id = (int)cmd.ExecuteScalar();
                 }
@@ -111,21 +123,28 @@ namespace OtoMeMo.Repositories
                 {
                     cmd.CommandText = @"
                         UPDATE Game
-                        SET Title = @Title,
+                        SET TitleEnglish = @TitleEnglish,
+                            TitleRomanized = @TitleRomanized,
+                            TitleCharacters = @TitleCharacters,
                             Img = @Img,
                             Description = @Description,
                             Developer = @Developer,
+                            OriginalLanguage = @OriginalLanguage,
                             Publisher = @Publisher,
-                            YearReleased = @YearReleased
+                            YearReleasedOriginal = @YearReleasedOriginal,
+                            YearReleasedGlobal = @YearReleasedGlobal
                         WHERE Id = @Id";
 
-                    DbUtils.AddParameter(cmd, "@Title", game.Title);
+                    DbUtils.AddParameter(cmd, "@TitleEnglish", game.TitleEnglish);
+                    DbUtils.AddParameter(cmd, "@TitleRomanized", game.TitleRomanized);
+                    DbUtils.AddParameter(cmd, "@TitleCharacters", game.TitleCharacters);
                     DbUtils.AddParameter(cmd, "@Img", game.Img);
                     DbUtils.AddParameter(cmd, "@Description", game.Description);
                     DbUtils.AddParameter(cmd, "@Developer", game.Developer);
                     DbUtils.AddParameter(cmd, "@Publisher", game.Publisher);
-                    DbUtils.AddParameter(cmd, "@YearReleased", game.YearReleased);
-                    DbUtils.AddParameter(cmd, "@Id", game.Id);
+                    DbUtils.AddParameter(cmd, "@OriginalLanguage", game.OriginalLanguage);
+                    DbUtils.AddParameter(cmd, "@YearReleasedGlobal", game.YearReleasedGlobal);
+                    DbUtils.AddParameter(cmd, "@YearReleasedOriginal", game.YearReleasedOriginal);
 
                     cmd.ExecuteNonQuery();
                 }
