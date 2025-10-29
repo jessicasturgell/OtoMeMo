@@ -2,29 +2,37 @@ import { Link } from "react-router-dom";
 
 function OtoNavbar() {
   return (
-    <div className="bg-orange-200 pt-10 pr-5 pl-5 pb-3 shadow-md">
-      <nav className="flex text-white justify-between items-end">
-        <span className="cherry-bomb-one-regular text-rose-400">
-          <Link to="/">OtoMeMo</Link>
-        </span>
-        <div className="flex gap-5 text-rose-400">
-          <Link to="/games">Games</Link>
-          {localStorage.getItem("otomemo_user") ? (
-            <Link
-              to=""
-              onClick={() => {
-                localStorage.removeItem("otomemo_user");
-                navigate("/login", { replace: true });
-              }}
-            >
-              Logout
-            </Link>
-          ) : (
-            <Link to="/login">Log In</Link>
-          )}
+    <>
+      <div className="navbar bg-base-100 shadow-sm">
+        <div className="flex-1">
+          <Link to="/" className="btn btn-ghost text-xl">
+            OtoMeMo
+          </Link>
         </div>
-      </nav>
-    </div>
+        <div className="flex-none">
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <Link to="/games">Games</Link>
+            </li>
+            <li>
+              {localStorage.getItem("otomemo_user") ? (
+                <Link
+                  to=""
+                  onClick={() => {
+                    localStorage.removeItem("otomemo_user");
+                    navigate("/login", { replace: true });
+                  }}
+                >
+                  Logout
+                </Link>
+              ) : (
+                <Link to="/login">Log In</Link>
+              )}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
   );
 }
 

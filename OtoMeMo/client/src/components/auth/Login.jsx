@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserByDisplayName } from "../../services/UserService.jsx";
 
-export const Login = () => {
+export const Login = ({ nav, setNav }) => {
   const [displayName, set] = useState("OtomeHeroine");
   const navigate = useNavigate();
   const handleLogin = (e) => {
@@ -14,7 +14,7 @@ export const Login = () => {
           "otomemo_user",
           JSON.stringify({
             id: user.id,
-          })
+          }),
         );
         navigate("/");
       } else {
@@ -25,20 +25,17 @@ export const Login = () => {
 
   return (
     <>
-      <div class="w-full max-w-xs">
+      <div className="w-full max-w-xs">
         <form
           onSubmit={handleLogin}
-          class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          className="mb-4 rounded bg-white px-8 pt-6 pb-8 shadow-md"
         >
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="username"
-            >
+          <div className="mb-4">
+            <label className="mb-2 block text-sm font-bold text-gray-700">
               Username
             </label>
             <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="username"
               type="text"
               placeholder="Username"
@@ -46,16 +43,16 @@ export const Login = () => {
               onChange={(evt) => set(evt.target.value)}
             />
           </div>
-          <div class="flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
               type="submit"
             >
               Sign In
             </button>
           </div>
         </form>
-        <p class="text-center text-gray-500 text-xs">
+        <p className="text-center text-xs text-gray-500">
           &copy;2025 OtoMeMo. All rights reserved.
         </p>
       </div>
