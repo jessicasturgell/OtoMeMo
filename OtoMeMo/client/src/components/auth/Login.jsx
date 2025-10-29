@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserByDisplayName } from "../../services/UserService.jsx";
 
-export const Login = ({ nav, setNav }) => {
+export const Login = ({ setCurrentUser }) => {
   const [displayName, set] = useState("OtomeHeroine");
   const navigate = useNavigate();
   const handleLogin = (e) => {
@@ -10,12 +10,9 @@ export const Login = ({ nav, setNav }) => {
 
     getUserByDisplayName(displayName).then((user) => {
       if (user && user.id) {
-        localStorage.setItem(
-          "otomemo_user",
-          JSON.stringify({
-            id: user.id,
-          }),
-        );
+        const userObj = { id: user.id };
+        localStorage.setItem("otomemo_user", JSON.stringify(userObj));
+        setCurrentUser(userObj);
         navigate("/");
       } else {
         window.alert("Invalid login");

@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ThemeController } from "../ThemeController.jsx";
 
-function OtoNavbar() {
+function OtoNavbar({ currentUser, setCurrentUser }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("otomemo_user");
+    setCurrentUser(null);
+    navigate("/login", { replace: true });
+  };
+
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
@@ -15,19 +24,16 @@ function OtoNavbar() {
               <Link to="/games">Games</Link>
             </li>
             <li>
-              {localStorage.getItem("otomemo_user") ? (
-                <Link
-                  to=""
-                  onClick={() => {
-                    localStorage.removeItem("otomemo_user");
-                    navigate("/login", { replace: true });
-                  }}
-                >
+              {currentUser ? (
+                <Link to="" onClick={handleLogout}>
                   Logout
                 </Link>
               ) : (
                 <Link to="/login">Log In</Link>
               )}
+            </li>
+            <li>
+              <ThemeController />
             </li>
           </ul>
         </div>

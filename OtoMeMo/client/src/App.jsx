@@ -4,6 +4,7 @@ import OtoNavbar from "./components/nav/Navbar.jsx";
 import { Register } from "./components/auth/Register.jsx";
 import { useEffect, useState } from "react";
 import GameList from "./components/games/GameList.jsx";
+import { Welcome } from "./components/Welcome.jsx";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -16,10 +17,13 @@ function App() {
 
   return (
     <>
-      <OtoNavbar />
+      <OtoNavbar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Routes>
-        <Route path="/" element={<>Hello.</>} />
-        <Route path="login" element={<Login />} />
+        <Route path="/" element={<Welcome />} />
+        <Route
+          path="login"
+          element={<Login setCurrentUser={setCurrentUser} />}
+        />
         <Route path="register" element={<Register />} />
         <Route path="games" element={<GameList />} />
       </Routes>
