@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeController } from "../ThemeController.jsx";
 
-function OtoNavbar({ currentUser, setCurrentUser }) {
+export const OtoNavbar = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -40,6 +40,4 @@ function OtoNavbar({ currentUser, setCurrentUser }) {
       </div>
     </>
   );
-}
-
-export default OtoNavbar;
+};

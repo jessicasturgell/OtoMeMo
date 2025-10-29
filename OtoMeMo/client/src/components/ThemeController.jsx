@@ -4,6 +4,7 @@ export const ThemeController = () => {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "default",
   );
+
   useEffect(() => {
     localStorage.setItem("theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
@@ -32,56 +33,55 @@ export const ThemeController = () => {
           tabIndex="-1"
           className="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl"
         >
-          <li>
-            <input
-              type="radio"
-              name="theme-dropdown"
-              className="theme-controller btn btn-sm btn-block btn-ghost w-full justify-start"
-              aria-label="Default"
-              value="default"
-              onChange={handleThemeChange}
-            />
-          </li>
-          <li>
-            <input
-              type="radio"
-              name="theme-dropdown"
-              className="theme-controller btn btn-sm btn-block btn-ghost w-full justify-start"
-              aria-label="Retro"
-              value="retro"
-              onChange={handleThemeChange}
-            />
-          </li>
-          <li>
-            <input
-              type="radio"
-              name="theme-dropdown"
-              className="theme-controller btn btn-sm btn-block btn-ghost w-full justify-start"
-              aria-label="Cyberpunk"
-              value="cyberpunk"
-              onChange={handleThemeChange}
-            />
-          </li>
-          <li>
-            <input
-              type="radio"
-              name="theme-dropdown"
-              className="theme-controller btn btn-sm btn-block btn-ghost w-full justify-start"
-              aria-label="Valentine"
-              value="valentine"
-              onChange={handleThemeChange}
-            />
-          </li>
-          <li>
-            <input
-              type="radio"
-              name="theme-dropdown"
-              className="theme-controller btn btn-sm btn-block btn-ghost w-full justify-start"
-              aria-label="Aqua"
-              value="aqua"
-              onChange={handleThemeChange}
-            />
-          </li>
+          {[
+            "default",
+            "dark",
+            "cupcake",
+            "bumblebee",
+            "emerald",
+            "corporate",
+            "synthwave",
+            "retro",
+            "cyberpunk",
+            "valentine",
+            "halloween",
+            "garden",
+            "forest",
+            "aqua",
+            "lofi",
+            "pastel",
+            "fantasy",
+            "wireframe",
+            "black",
+            "luxury",
+            "dracula",
+            "cmyk",
+            "autumn",
+            "business",
+            "acid",
+            "lemonade",
+            "night",
+            "coffee",
+            "winter",
+            "dim",
+            "nord",
+            "sunset",
+            "caramellatte",
+            "abyss",
+            "silk",
+          ].map((t) => (
+            <li key={t}>
+              <input
+                type="radio"
+                name="theme-dropdown"
+                className="theme-controller btn btn-sm btn-block btn-ghost w-full justify-start"
+                aria-label={t}
+                value={t}
+                checked={theme === t}
+                onChange={handleThemeChange}
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </>
