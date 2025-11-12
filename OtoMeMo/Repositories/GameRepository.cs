@@ -95,7 +95,7 @@ namespace OtoMeMo.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Game (Id, TitleEnglish, TitleRomanized, TitleCharacters, Img, [Description], Developer, Publisher, OriginalLanguage, YearReleasedOriginal, YearReleasedGlobal)
+                        INSERT INTO Game (TitleEnglish, TitleRomanized, TitleCharacters, Img, [Description], Developer, Publisher, OriginalLanguage, YearReleasedOriginal, YearReleasedGlobal)
                         OUTPUT INSERTED.ID
                         VALUES (@TitleEnglish, @TitleRomanized, @TitleCharacters, @Img, @Description, @Developer, @Publisher, @OriginalLanguage, @YearReleasedOriginal, @YearReleasedGlobal)";
 
